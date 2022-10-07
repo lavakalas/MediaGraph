@@ -3,3 +3,4 @@ Linux:
     ffmpeg -video_size 1024x768 -framerate 60 -f x11grab -i :1.0+100,200 -f matroska pipe:1 | ffplay -i pipe:0
     ffmpeg -video_size 1024x768 -framerate 60 -f x11grab -i :1.0+100,200 -f v4l2 /dev/video0
     ffplay -f v4l2 /dev/video0
+    ffmpeg -i input.jpg -vf scale=320:240 output_320x240.png
