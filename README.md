@@ -7,3 +7,10 @@ Main features:
  - Working with Virtual Camera (creating one, sending data to it)
 
 Feel free to use, criticize, test or fork it.
+
+# Requirements
+
+requires PyQt5 library
+'''
+pip install PyQt5
+'''
