@@ -1,4 +1,5 @@
 import imghdr
+import subprocess
 import sys, os
 
 from PyQt5 import QtWidgets, QtCore
@@ -209,12 +210,14 @@ class MainWindow(QDialog, Ui_dialog):
         self.inPath = self.le_Input.text()
         self.outPath = self.le_Output.text()
 
-
     def Apply(self):
         self.Refresh()
         if os.path.exists(self.inPath):
             if self.inType is not None:
-                os.system(f"ffmpeg -i {self.inPath} {self.outPath}")
+                # os.system(f"ffmpeg -i {self.inPath} {self.outPath}")      decided to use subprocess instead
+                with open(os.devnull, 'wb') as devnull:
+                    subprocess.check_call(['/usr/local/bin/ffmpeg', '-i', self.inPath, self.outPath], stdout=devnull,
+                                          stderr=subprocess.STDOUT)
             else:
                 self.msg.setText("Please input path to your IMAGE file.")
                 self.msg.exec_()
