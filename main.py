@@ -2,7 +2,7 @@ import imghdr
 import subprocess
 import sys, os
 
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore, QtGui
 from PyQt5.QtWidgets import QDialog, QApplication, QFileDialog, QMessageBox
 
 
@@ -194,6 +194,7 @@ class Ui_dialog(object):
 class MainWindow(QDialog, Ui_dialog):
     def __init__(self):
         super().__init__()
+        self.setWindowIcon(QtGui.QIcon("icon.png"))
         self.msg = QMessageBox()
         self.msg.setWindowTitle("Error")
         self.msg.setIcon(QMessageBox.Critical)
