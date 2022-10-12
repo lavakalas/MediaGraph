@@ -11,6 +11,5 @@ Feel free to use, criticize, test or fork it.
 # Requirements
 
 requires PyQt5 library
-'''
-pip install PyQt5
-'''
+
+`pip install PyQt5`
