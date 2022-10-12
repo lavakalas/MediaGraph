@@ -1,7 +1,8 @@
-import sys
+import imghdr
+import sys, os
 
 from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtWidgets import QDialog, QApplication, QFileDialog
+from PyQt5.QtWidgets import QDialog, QApplication, QFileDialog, QMessageBox
 
 
 class Ui_dialog(object):
@@ -192,20 +193,45 @@ class Ui_dialog(object):
 class MainWindow(QDialog, Ui_dialog):
     def __init__(self):
         super().__init__()
-
+        self.msg = QMessageBox()
+        self.msg.setWindowTitle("Error")
+        self.msg.setIcon(QMessageBox.Critical)
+        self.inType = None
+        self.outPath = ""
+        self.inPath = ""
         self.setupUi(self)
         self.btn_Apply.clicked.connect(self.Apply)
         self.btn_OpenInput.clicked.connect(self.Input)
         self.btn_OpenOutput.clicked.connect(self.Output)
         self.cb_filters.clicked.connect(self.FilterCheck)
 
+    def Refresh(self):
+        self.inPath = self.le_Input.text()
+        self.outPath = self.le_Output.text()
+
+
     def Apply(self):
-        print("applied")
+        self.Refresh()
+        if os.path.exists(self.inPath):
+            if self.inType is not None:
+                os.system(f"ffmpeg -i {self.inPath} {self.outPath}")
+            else:
+                self.msg.setText("Please input path to your IMAGE file.")
+                self.msg.exec_()
+        else:
+            self.msg.setText("Incorrect path(s)")
+            self.msg.exec_()
 
     def Input(self):
-        self.inPath, ok = QFileDialog.getOpenFileName(self, "Choose image", '')
-        if ok:
-            self.le_Input.setText(self.inPath)
+        try:
+            self.inPath, ok = QFileDialog.getOpenFileName(self, "Choose image", '')
+            self.inType = imghdr.what(self.inPath)
+            if ok:
+                if self.inType is not None:
+                    self.le_Input.setText(self.inPath)
+        except FileNotFoundError:
+            self.msg.setText("File Not Found")
+            self.msg.exec_()
 
     def Output(self):
         self.outPath, ok = QFileDialog.getSaveFileName(self, "Choose image", '')
