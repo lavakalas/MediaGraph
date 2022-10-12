@@ -1,6 +1,6 @@
 # MediaGraph
 ## Description
-> QT-based GUI for ffmpeg with additional feature.
+> QT-based GUI for ffmpeg with additional feature written in Python.
 
 ### Main features:
  - Image transcoding
