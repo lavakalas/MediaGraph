@@ -1,14 +1,15 @@
 # MediaGraph
-QT-based GUI for ffmpeg with additional feature.
+## Description
+> QT-based GUI for ffmpeg with additional feature.
 
-Main features:
+### Main features:
  - Image transcoding
  - Video transcoding
  - Working with Virtual Camera (creating one, sending data to it)
 
 Feel free to use, criticize, test or fork it.
 
-# Requirements
+## Requirements
 
 requires PyQt5 library
 
